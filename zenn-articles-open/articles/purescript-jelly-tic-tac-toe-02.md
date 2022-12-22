@@ -1,79 +1,37 @@
 ---
-title: "魔理沙「PureScript Jelly で、Reactチュートリアル三目並べの《純粋関数型／型安全》版を作るぜ」"
+title: "魔理沙「PureScript Jelly で、Reactチュートリアル三目並べの《純粋関数型／型安全》版を作るぜ」②"
 emoji: "🐈"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["PureScript"]
 published: false
 ---
 
-> **Moggi**は、計算効果を含んだプログラムを**Kleisli**圏の射とみなすことによって、圏論的に物事をうまく取り扱う方法を提唱した。
-> 計算効果をモナドによって捉えると、モナドにおける自然変換μが「分岐をうまくまとめる」重要な働きをすることがわかる。
+> 数学は論理を探求するひとつの方法である。
 >
-> 『圏論の道案内 ~矢印でえがく数学の世界~』[^1]
+> ウィトゲンシュタイン『論理哲学論考』6.234 [^1]
 
-PureScript Advent Calendar 2022 の記事です。
+> この三昧に遊化（ゆけ）するに、端坐參禪を正門とせり。
+> この法は、人人の分上にゆたかにそなはれりといへども、
+> いまだ修せざるにはあらはれず、證せざるにはうることなし。
+> 
+> （この三昧に遊化（あそ）ぶには、端坐して參禪するをその正門としている。
+> この法は、人々（めいめい）の身の上に何不足なくそなわっているのであるが、
+> 修行しないと実現しないし、修行して実証しないと自分のものにならない。）
+> 
+> 道元禅師「辨道話」
+
+魔理沙「PureScript Advent Calendar 2022 最終日の記事だ。」
+
 https://qiita.com/advent-calendar/2022/purescript
 
-## 完成したもの
+## 完成したもの（再掲）
 
-https://github.com/mumei-xxxx/purescript-sanmoku-dev0
+https://github.com/mumei-xxxx/purescript-sanmoku-dev0/tree/main/jelly-tic-tac-toe-without-timemachine
 
 ![tic-tac-toe](/images/purescript-jelly-tic-tac-toe-01/tic-tac-toe.gif)
 
-## 概略
 
-魔理沙「Reactのチュートリアルに三目並べがある。」
-
-https://ja.reactjs.org/tutorial/tutorial.html
-
-@[codepen](https://codepen.io/gaearon/pen/LyyXgK?editors=0010)
-
-霊夢「三目ならべって、何？」
-魔理沙「三目ならべとは、マルバツゲームだ。一手ごとに交互に升目を○か×で埋めていって、縦か横か斜め一列になったものが勝ちなんだぜ。英語でtic-tac-toeという。」
-霊夢「なるほどね。」
-魔理沙「これを今回は、PureScript で作ろうと思う。」
-霊夢「なんで、PureScript で作るの？」
-魔理沙「理屈を言えば、いろいろあるが、完全になんとなくだぜ。」
-霊夢「ずこー。」
-魔理沙「純粋関数型！型安全！っていうのがなんとなくかっこいい。そして、PureScript は Haskell に影響を受けた言語だ。だから、PureScript 書いたコードは原則、数学の圏論的には、クライスリ圏の射の合成とみなすことができる。」
-霊夢「プログラムをクライスリ圏の射の合成としたら、どうだっていうの？」
-魔理沙「わからない。わからないが、自分で実際に作ってみて、どういう景色が見えるのかという知的好奇心だぜ。」
-霊夢「」
-
-霊夢「なるほどね。それで、今回は、どんなフレームワークを使うの？」
-魔理沙「PureScript のWebフレームワークといえば、Halogen が有名だ。しかし、今回は、Zennでも記事を公開されていたゆきくらげさんが作ったフレームワークである。PureScript Jelly を使うぜ。」
-
-https://jelly.yukikurage.net/
-
-霊夢「なんで Halogen は使わないの？」
-魔理沙「Halogen は単純に複雑で、挫折する可能性が高いと思ったぜ。」
-霊夢「『単純に複雑』ね。」
-魔理沙「また、PureScript Jelly は、SolidJSを意識していたり、割とReactライクに書けるのではと思ったからだぜ。」
-霊夢「なるほどね。」
-魔理沙「また、Reactの三目ならべのチュートリアルは、タイムマシン機能というものがある。端的に言うと、ゲーム履歴機能だ。」
-魔理沙「しかし、これを入れると、ややロジックが込み入って、見せたい、PureScript や Jelly の部分をシンプルに見れられなくなる。」
-魔理沙「だから、今回は、タイムマシン機能をのぞいた、純粋な三目ならべの部分を実装していくぜ。」
-霊夢「了解した。」
-
-仮想 DOM を使わない Web フレームワーク 'Jelly' を作った in PureScript
-https://zenn.dev/yukikurage/articles/4735819c3b421b
-
-## 環境/バージョン情報
-
-魔理沙「バージョン情報だ。」
-魔理沙「Jelly は発展中のフレームワークだ。今後、破壊的変更で、この記事に書いてあることが、古くなる可能性は了承しておいて欲しいぜ。」
-
-Windows Home 11 / WSL / Ubuntu 20.04
-Node.js 18.12.1
-npm 8.19.2
-PureScript 0.15.6
-PureScript Jelly 0.8.1
-PureScript Jelly Signal 0.3.0
-
-## ディレクトリ構成
-
-魔理沙「これが今回のプロジェクトのディレクトリ構成だ。」
-魔理沙「`src` 配下で開発して、トランスパイルされたものが、`public` 配下に格納されるぜ。」
+## ディレクトリ構成（再掲）
 
 ```
 .
@@ -99,140 +57,6 @@ PureScript Jelly Signal 0.3.0
 └── test
     └── Main.purs
 ```
-
-## 環境構築について
-
-魔理沙「環境構築に関しては、PureScript Advent Calendar 2022 1日目のゆきくらげさんの記事を参考にさせてもらったぜ。」
-
-> PureScript + Halogen + Tailwind で Web フロント開発環境構築 (in VSCode)
-https://qiita.com/yukikurage_2019/items/a2c7b0d1d2c34aee120c
-
-
-魔理沙「違いは、Tailwind ではなく、Sassを使っていることだぜ。」
-
-```json:package.json
-"scripts": {
-    "install": "npx spago install",
-    "bundle:script": "npx spago bundle-app -t ./public/index.js -y",
-    "bundle:scss": "sass --error-css --style=compressed ./src/style.scss ./public/style.css",
-    "bundle": "run-s bundle:*",
-    "watch:script": "npx spago bundle-app -t ./public/index.js -w",
-    "watch:scss": "sass --watch --error-css ./src/style.scss ./public/style.css",
-    "watch:server": "npx live-server ./public",
-    "watch": "run-p watch:*"
-},
-```
-
-## calculateWinner 勝者判定
-
-魔理沙「まず、コンポーネントについて、解説する前に、calculateWinner 関数についてだ。この部分については、別に記事を作って解説したいから、ここでは、簡単に触れるにとどめる。」
-霊夢「了解した。」
-魔理沙「とりあえず、以前、TypeScript で作ったコードがあるから、それと比較していくぜ。」
-魔理沙「TypeScriptで作ったコードの詳細については以前書いた以下の記事を参考にして欲しい。」
-
-> Next.js + TypeScript + Recoil + Herp社ESLint Config でReactチュートリアルを作る。
-
-https://zenn.dev/purenium/articles/nextjs-recoil-tic-tac-toe
-
-
-```ts:src/useCases/calculateWinner.ts
-/**
- * @description [null, null, null, null, null, null, 'X', null, 'O']のような配列
- */
-type SquareValueType = "X" | "O" | null
-type BoardArrType = SquareValueType[]
-
-/**
- * @description 勝者を判定する。
- */
-export const calculateWinner = (squares: BoardArrType): SquareValueType => {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ]
-
-  for (const line of lines) {
-    const [a, b, c] = line
-    // 縦、横、対角線 で3つXあるいは、Oが連続すれば、連続したvalueを返す。
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a]
-    }
-  }
-  return null
-}
-
-```
-
-```purs:src/UseCases/calculateWinner.purs
-module UseCases.Calculatewinner
-  ( Board
-  , SquareValueType(..)
-  , calculateWinner
-  , lines
-  ) where
-
-import Control.Alternative (guard)
-import Data.Array (all, head, (!!))
-import Data.Generic.Rep (class Generic)
-import Data.Maybe (Maybe(..))
-import Data.Show.Generic (genericShow)
-import Prelude (class Eq, class Ord, class Show, bind, discard, pure, ($), (==))
-
-lines :: Array (Array Int)
-lines =
-  [ [ 0, 1, 2 ]
-  , [ 3, 4, 5 ]
-  , [ 6, 7, 8 ]
-  , [ 0, 3, 6 ]
-  , [ 1, 4, 7 ]
-  , [ 2, 5, 8 ]
-  , [ 0, 4, 8 ]
-  , [ 2, 4, 6 ]
-  ]
-
-data SquareValueType = X | O
-
-derive instance Eq SquareValueType
-derive instance Ord SquareValueType
-derive instance Generic SquareValueType _
-
-instance Show SquareValueType where
-  show = genericShow
-
-type Board = Array (Maybe SquareValueType)
-
-calculateWinner :: Board -> Maybe SquareValueType
-calculateWinner boardArr = head do
-  line <- lines
-  sv <- [ X, O ]
-  guard $ all (\i -> boardArr !! i == Just (Just sv)) line
-  pure sv
-
-```
-
-魔理沙「根本のロジック自体は、TypeScriptのコードと同じだ。」
-魔理沙「まず、以下の型に注目だぜ。」
-
-```purs
-data SquareValueType = X | O
-```
-
-魔理沙「これが、升目の値を表す型だ。要するにマルバツゲームだから、`X` か `O`かということだ。」
-霊夢「なるほどね。」
-魔理沙「ただ、PureScript には、`null` がない。だから、`X` か `O` か `Nothing` かの Maybe値の配列で値を考えていくことにする。つまり、」
-
-```purs
-type Board = Array (Maybe SquareValueType)
-```
-
-魔理沙「ということだ。」
-魔理沙「繰り返しになるが、`calculateWinner`関数については、別記事で解説するぜ。」
 
 ## square コンポーネント（升目部分）
 
@@ -263,33 +87,49 @@ export const Square: React.FC<SquarePropsType> = ({ value, onClick }) => {
 
 ```purs:src/Components/Square.purs
 module Components.Square
-  ( SquarePropsType,
-    squareComponent
+  ( SquarePropsType
+  , squareComponent
   )
   where
 
 import Prelude
+import Data.Maybe (Maybe(..))
+import Web.HTML.Event.EventTypes (click)
 
 import Jelly.Component (class Component, textSig)
 import Jelly.Element as JE
 import Jelly.Prop ((:=), on)
 import Jelly.Signal (Signal)
-import Data.Maybe (Maybe(..))
-import UseCases.Calculatewinner (SquareValue(..))
-import Web.HTML.Event.EventTypes (click)
 
+import UseCases.Calculatewinner (SquareValueType(..))
+
+{-
+  squareComponent の引数の型
+  onClick clickしたときに呼び出される関数
+  升目の値 Signal かつ Maybe。X or O or Nothing
+-}
 type SquarePropsType m =
   { onClick :: m Unit
-  , value :: Signal (Maybe SquareValue) }
+  , value :: Signal (Maybe SquareValueType) }
 
+{-
+  squareComponent 三目ならべの盤のひとつの升目のComponent
+  SquarePropsType m を引数にとり、 m Unitを返す。
+  Unit はHaskellの空のタプル()と同じ。
+  HTMLを描画する。
+  呼び出すときは、
+  squareComponent { onClick: ●●, value: ■■ }
+  のようにする。
+-}
 squareComponent :: forall m. Component m => SquarePropsType m -> m Unit
 squareComponent { onClick, value } = do
   JE.button [ "class" := "square", on click \_ -> onClick ] do
+    -- パターンマッチング
+    -- textSig は Signal を表示する Jelly の関数
     textSig $ value <#> case _ of
       Just X -> "X"
       Just O -> "O"
       Nothing -> ""
-
 ```
 
 魔理沙「解説のため、コメントを多めに書いた。」
@@ -434,7 +274,12 @@ import Jelly.Element as JE
 import Jelly.Prop ((:=))
 import Jelly.Signal (Signal, newState, readSignal, writeChannel)
 import Components.Square (squareComponent)
-import UseCases.Calculatewinner (SquareValueType(..), calculateWinner, nextPlayer)
+import UseCases.Calculatewinner (SquareValueType(..), calculateWinner)
+
+nextPlayer :: SquareValueType -> SquareValueType
+nextPlayer = case _ of
+  X -> O
+  O -> X
 
 data GameState = Winner SquareValueType | NextPlayer SquareValueType
 
@@ -452,17 +297,18 @@ boardComponent = do
       gameState <- readSignal gameStateSig
       case gameState of
         Winner _ -> pure unit
-        NextPlayer p -> when ((squares !! i) == Just Nothing) do
+        NextPlayer player -> when ((squares !! i) == Just Nothing) do
           let
-            newSquares = fromMaybe squares $ updateAt (i :: Int) (Just p) squares
+            newSquares = fromMaybe squares $ updateAt (i :: Int) (Just player) squares
           writeChannel squareArrayChannel newSquares
           writeChannel gameStateChannel $ case calculateWinner newSquares of
-            Nothing -> NextPlayer $ nextPlayer p
-            Just w -> Winner w
+            Nothing -> NextPlayer $ nextPlayer player
+            Just winner -> Winner winner
 
     renderSquareComponent :: Component m => Int -> m Unit
     renderSquareComponent valueInt = do
       let
+        valSig :: Signal (Maybe SquareValueType)
         valSig = do
           squares <- squareArraySig
           pure $ join $ squares !! valueInt
@@ -470,8 +316,8 @@ boardComponent = do
 
     playStatus :: Signal String
     playStatus = gameStateSig <#> case _ of
-      NextPlayer p -> "Next player: " <> show p
-      Winner w -> "Winner: " <> show w
+      NextPlayer player -> "Next player: " <> show player
+      Winner winner -> "Winner: " <> show winner
 
   JE.div' do
     JE.div' do
@@ -491,7 +337,6 @@ boardComponent = do
         renderSquareComponent 6
         renderSquareComponent 7
         renderSquareComponent 8
-
 ```
 
 魔理沙「まずは、以下の `GameState` について解説する。」
@@ -613,6 +458,8 @@ do
 
 ## root コンポーネント
 
+魔理沙「最後は、root コンポーネントだ。」
+
 ```purs:src/Main.purs
 module Main where
 
@@ -641,8 +488,35 @@ rootComponent =
   JE.div [ "class" := "game" ] do
     JE.div [ "class" := "game-board" ] do
       boardComponent
-
 ```
 
-[^1]: 西郷甲矢人、能美十三『圏論の道案内 ~矢印でえがく数学の世界~』技術評論社 Kindle版 位置No.3983/4269
+魔理沙「`main`の中で、`rootComponent`をレンダーするイメージだな。」
+魔理沙「`main`の内部については、難しくて、正直私にもよくわかってないぜ。」
+魔理沙「現時点ではとりあえず、コンポーネントをレンダーするボイラープレートとしてとらえて欲しい。」
+魔理沙「Reactで言えば、`ReactDOM.render`みたいな感じだ。」
+魔理沙「ということで、一通りの解説が終了した。」
+
+## 感想
+
+霊夢「今回の感想はどうだった？」
+魔理沙「まず、`calculateWinner`関数でも`Data.Array`のメソッドなどを見てきたが」
+魔理沙「`Data.Array`のメソッドやモナドが強力と感じたぜ。」
+魔理沙「`Data.Array`に配列操作のメソッドがかなり充実していて、便利だと思った。」
+魔理沙「配列のモナドで、`foreach`的な処理も宣言的に書けた。」
+魔理沙「パターンマッチングもかなり強力と思ったな。」
+魔理沙「それと全体的に括弧を書くのが減らせて、そこがよかったな。」
+霊夢「なるほどね。」
+霊夢「PureScript Jellyについてはどうだい。」
+魔理沙「Jelly.Signal は最初、ゆきくらげさんが、`purescript-signal` が純粋性が壊れているといって、FRP（Functional Reactive Programming）の考えも取り入れて、自作したものだが、なかなか、よく考えられていて、ひたすら感服したぜ。」
+魔理沙「あと、全体的にシンプルでいい感じだ。」
+魔理沙「Real DOMを使うのも、今風でそりがいい感じだ。」
+魔理沙「この記事の内容は、Jelly が進化していくに連れ、どんどん古くなっていくだろうから、『2022年末はこうだった』という記録的なものとして見てほしいね。」
+魔理沙「そんな感じだ。作っていて感じたのは、もっと複雑なものを作ってみないとわからない感じもしたね。」
+霊夢「なるほどね。」
+魔理沙「それでは、ここまで読んでくださった読者の皆様、そして、協力していだいたゆきくらげさんはじめ、ディスコード PureScript JPコミュニティの皆さんに改めて感謝をいいたい。」
+魔理沙、霊夢「ありがとうございました。」
+魔理沙「それでは、サラダバー」
+霊夢「サラダバー」
+
+[^1]: ウィトゲンシュタイン 野矢 茂樹訳『論理哲学論考』（岩波文庫）p.135 https://www.iwanami.co.jp/book/b246897.html
 [^2]: https://github.com/purescript/purescript-prelude/blob/v3.0.0/src/Data/Functor.purs#L24
