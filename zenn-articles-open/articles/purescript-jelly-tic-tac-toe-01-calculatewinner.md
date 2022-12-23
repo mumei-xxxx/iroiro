@@ -40,7 +40,7 @@ https://ja.reactjs.org/tutorial/tutorial.html
 魔理沙「純粋関数型言語で、フロントエンドを作るというのは面白いテーマだと思うぜ。」
 魔理沙「素朴なプログラムに数学的、圏論的な意味がある。」
 魔理沙「例えば、do構文のなかの`pure`。」
-魔理沙「つまり、モナドの`pure`は、型を `a` から `m a` にするわけだが。」
+魔理沙「つまり、モナドの`pure`は、型 `a` を受け取って 型 `m a` を返すわけだが。」
 魔理沙「これは、恒等関手から `m` への自然変換だな。」
 魔理沙「圏論の創始者のマックレーンは、次のように言っている。」
 
@@ -119,7 +119,7 @@ PureScript Jelly Signal 0.3.0
 
 ## 環境構築について
 
-魔理沙「環境構築に関しては、PureScript Advent Calendar 2022 1日目のゆきくらげさんの記事を参考にさせてもらったぜ。」
+魔理沙「環境構築に関しては、PureScript Advent Calendar。 2022 1日目のゆきくらげさんの記事を参考にさせてもらったぜ。」
 
 > PureScript + Halogen + Tailwind で Web フロント開発環境構築 (in VSCode)
 
@@ -191,7 +191,7 @@ export const calculateWinner = (squares: BoardArrType): SquareValueType => {
 魔理沙「ここで、`calculateWinner` の書き換えだが、まず、`for`文のなかで、勝者があれば、それを返す。」
 魔理沙「それ以外だと `null` を返す。」
 魔理沙「これをPureScriptで書き換えるのだが、うまくいかなかった。」
-魔理沙「だから、PureScript のDiscordのコミュニティで質問したのだが、そこでゆきくらげさんに教えもらってなんとかいけだのだぜ。」
+魔理沙「だから、PureScript のDiscordのコミュニティで質問したのだが、そこでゆきくらげさんに教えもらってなんとかいけたのだぜ。」
 霊夢「ゆきくらげさんありがとう。」
 
 https://zenn.dev/yukikurage/articles/482a8647421fd5
@@ -353,8 +353,8 @@ isLineMatch :: Array Int -> SquareValueType -> Boolean
 isLineMatch line squareValue = all (\i -> boardArr !! i == Just (Just squareValue)) line
 ```
 
-魔理沙「isLineMatchはひとつの列について、同じ値で埋まっているかをチェックする関数だ。」
-魔理沙「まず、Data.Arrayのall関数について。」
+魔理沙「`isLineMatch` はひとつの列について、同じ値で埋まっているかをチェックする関数だ。」
+魔理沙「まず、`Data.Array` の `all` 関数について。」
 
 https://pursuit.purescript.org/packages/purescript-arrays/7.1.0/docs/Data.Array#v:all
 
@@ -407,9 +407,9 @@ in
   join $ find isJust checked
 ```
 
-魔理沙「次は、let-in式のinのなかだ。」
+魔理沙「次は、`let-in` 式の`in` のなかだ。」
 魔理沙「最終的な返り値だ。」
-魔理沙「まず、findだ。これは、`Data.Array`の関数で、名前の通り、条件式が真のものを配列の中から見つけるという関数だ。」
+魔理沙「まず、`find` だ。これは、`Data.Array`の関数で、名前の通り、条件式が真のものを配列の中から見つけるという関数だ。」
 
 ```purs
 find :: forall a. (a -> Boolean) -> Array a -> Maybe a
@@ -428,7 +428,8 @@ https://pursuit.purescript.org/packages/purescript-maybe/6.0.0/docs/Data.Maybe#v
 
 魔理沙「これで、結果が得られるわけだが、コメントにもあるように、findは、`Maybe a`を返す。」
 魔理沙「だから、`Maybe (Maybe SquareValueType)`の値が返ってきてしまう。」
-魔理沙「これは、`join` 関数で二重になっているモナドのデータ構造を一重にできる。」
+魔理沙「そこで`join` 関数の出番だ。」
+魔理沙「二重になっているモナドのデータ構造を一重にできるぜ。」
 
 https://pursuit.purescript.org/packages/purescript-prelude/6.0.1/docs/Control.Bind#v:join
 
@@ -436,7 +437,7 @@ https://pursuit.purescript.org/packages/purescript-prelude/6.0.1/docs/Control.Bi
 join :: forall a m. Bind m => m (m a) -> m a
 ```
 
-魔理沙「つまり、`join $ find isJust checked`で`Maybe SquareValueType`を得られるわけだ。」
+魔理沙「つまり、`join $ find isJust checked` で `Maybe SquareValueType` を得られるわけだ。」
 
 これをPureScriptの対話型PSCiで試してみるぜ。
 
@@ -454,7 +455,7 @@ import Prelude
 ```
 
 魔理沙「という感じで成功した。」
-魔理沙「注意点としては、`calculateWinner1`は、`Array (Maybe SquareValueType)` を引数にとる。」
+魔理沙「注意点としては、`calculateWinner1` は、`Array (Maybe SquareValueType)` を引数にとる。」
 魔理沙「だから、`map Just ●●`で、配列を`Array (Maybe SquareValueType)`に変換することだ。」
 
 ## パターン② パターン① let-in式 で guard
@@ -482,10 +483,10 @@ calculateWinner2 boardArr =
     head checked
 ```
 
-魔理沙「`[]`は、`Alternative`型クラスのインスタンスだから、`guard`が使える。」
-魔理沙「この`guard` 条件式 を使えば、条件に対して、真でない値を取り除けるぜ。」
-魔理沙「これを、`in`の中で配列から値を取り出せば、終わりだ。`head`を使えばいいぜ。」
-魔理沙「ちなみに、PureScriptの`Data.Array`の型は以下のようになっている。」
+魔理沙「`[]`は、`Alternative` 型クラスのインスタンスだから、`guard` が使える。」
+魔理沙「この `guard` 条件式 を使えば、条件に対して、真でない値を取り除けるぜ。」
+魔理沙「これを、`in` の中で配列から値を取り出せば、終わりだ。`head` を使えばいいぜ。」
+魔理沙「ちなみに、PureScriptの `Data.Array` の型は以下のようになっている。」
 
 ```purs
 head :: forall a. Array a -> Maybe a
@@ -495,8 +496,8 @@ https://pursuit.purescript.org/packages/purescript-arrays/4.0.1/docs/Data.Array#
 
 ## パターン③ guard を活用して、let-in式もなくす。
 
-魔理沙「パターン③は、`guard`を使う路線を突き進めるぜ。」
-魔理沙「それで、`let-in`式もなくなったのが、次のバージョンだな。」
+魔理沙「パターン③は、`guard` を使う路線を徹底するぜ。」
+魔理沙「それで、`let-in` 式もなくなったのが、次のバージョンだな。」
 
 ```purs
 calculateWinner :: Board -> Maybe SquareValueType
@@ -508,9 +509,9 @@ calculateWinner boardArr = head do
 ```
 
 霊夢「かなり短くなったわね。」
-魔理沙「`line`と`squareValue`のすべての値を、`guard`でチェックして、合格した、`squareValue`を返す感じだ。」
+魔理沙「`line`と`squareValue`のすべての値を、`guard` でチェックして、合格した、`squareValue`を返す感じだ。」
 魔理沙「今回はパターン③を使おうと思う。」
-霊夢「モナドと`Data.Array`の関数はかなり強力ね。」
+霊夢「モナドと `Data.Array` の関数はかなり強力ね。」
 
 ◆◆◆
 
