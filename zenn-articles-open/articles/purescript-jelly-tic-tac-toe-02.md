@@ -6,6 +6,14 @@ topics: ["PureScript"]
 published: false
 ---
 
+魔理沙「昨日の続きです。」
+
+https://zenn.dev/purenium/articles/purescript-jelly-tic-tac-toe-01-calculatewinner
+
+魔理沙「PureScript Advent Calendar 2022 最終日の記事だ。」
+
+https://qiita.com/advent-calendar/2022/purescript
+
 > 数学は論理を探求するひとつの方法である。
 >
 > ウィトゲンシュタイン『論理哲学論考』6.234 [^1]
@@ -20,9 +28,6 @@ published: false
 > 
 > 道元禅師「辨道話」
 
-魔理沙「PureScript Advent Calendar 2022 最終日の記事だ。」
-
-https://qiita.com/advent-calendar/2022/purescript
 
 ## 完成したもの（再掲）
 
