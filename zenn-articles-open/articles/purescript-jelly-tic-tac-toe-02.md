@@ -6,11 +6,11 @@ topics: ["PureScript"]
 published: false
 ---
 
-魔理沙「昨日の続きです。」
+昨日の続きです。
 
 https://zenn.dev/purenium/articles/purescript-jelly-tic-tac-toe-01-calculatewinner
 
-魔理沙「PureScript Advent Calendar 2022 最終日の記事だ。」
+霊夢「PureScript Advent Calendar 2022 最終日の記事です。」
 
 https://qiita.com/advent-calendar/2022/purescript
 
